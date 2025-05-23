@@ -20,11 +20,14 @@ export default function ChatBot() {
     isSendingRef.current = true;
 
     try {
-      const res = await fetch("http://localhost:4000/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, message: text }),
-      });
+      const res = await fetch(
+        "https://backend-ai-chatbothitc.onrender.com/api/chat",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sessionId, message: text }),
+        }
+      );
 
       const data = await res.json();
       setSessionId(data.sessionId);
