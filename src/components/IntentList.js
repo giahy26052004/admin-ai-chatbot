@@ -37,35 +37,72 @@ export default function IntentList() {
   if (loading) return <CircularProgress />;
 
   return (
-    <Box>
+    <Box sx={{ maxWidth: 1300, margin: "auto", overflowX: "auto" }}>
       {intents.length === 0 ? (
         <Typography>Chưa có intent nào.</Typography>
       ) : (
-        <Table>
+        <Table
+          size="small"
+          sx={{
+            tableLayout: "fixed", // ✨ cho ellipsis hoạt động
+            width: "100%",
+          }}
+        >
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Prompt Template</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell sx={{ width: 120 }}>Name</TableCell>
+              <TableCell sx={{ width: 240 }}>Prompt Template</TableCell>
+              <TableCell sx={{ width: 200 }}>Description</TableCell>
+              <TableCell sx={{ width: 100 }}>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {intents.map((i) => (
               <TableRow key={i._id}>
-                <TableCell>{i.name}</TableCell>
-                <TableCell>
-                  <Typography noWrap maxWidth={300}>
-                    {i.promptTemplate}
-                  </Typography>
+                {/* Name với ellipsis*/}
+                <TableCell
+                  sx={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  <Typography noWrap>{i.name}</Typography>
                 </TableCell>
-                <TableCell>{i.description || "—"}</TableCell>
+
+                {/* Prompt Template */}
+                <TableCell
+                  sx={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  <Typography noWrap>{i.promptTemplate}</Typography>
+                </TableCell>
+
+                {/* Description */}
+                <TableCell
+                  sx={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  <Typography noWrap>{i.description || "—"}</Typography>
+                </TableCell>
+
+                {/* Actions */}
                 <TableCell>
-                  <IconButton component={RouterLink} to={`/edit/${i._id}`}>
-                    <Edit />
+                  <IconButton
+                    size="small"
+                    component={RouterLink}
+                    to={`/edit/${i._id}`}
+                  >
+                    <Edit fontSize="small" />
                   </IconButton>
-                  <IconButton onClick={() => handleDelete(i._id)}>
-                    <Delete />
+                  <IconButton size="small" onClick={() => handleDelete(i._id)}>
+                    <Delete fontSize="small" />
                   </IconButton>
                 </TableCell>
               </TableRow>
